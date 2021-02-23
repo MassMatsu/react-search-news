@@ -2,7 +2,15 @@ import React from 'react';
 import { useGlobalContext } from './context';
 
 const Stories = () => {
-  const { hits } = useGlobalContext();
+  const { loading, hits } = useGlobalContext();
+
+  if (loading) {
+    return (
+      <div className='spinner-container'>
+        <div className='loading'></div>
+      </div>
+    );
+  }
   return (
     <section className='stories'>
       {hits.map((story) => {

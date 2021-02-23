@@ -1,6 +1,6 @@
 import React, { useContext, createContext, useReducer, useEffect } from 'react';
 import reducer from './reducer';
-import { SET_LOADING, SET_STORIES } from './actions';
+import { SET_LOADING, SET_STORIES, HANDLE_SEARCH } from './actions';
 
 const AppContext = createContext();
 
@@ -27,12 +27,19 @@ const AppProvider = ({ children }) => {
     dispatch({ type: SET_STORIES, payload: data });
   };
 
+  const handleSearch = (searchTerm) => {
+    console.log(searchTerm);
+    dispatch({ type: HANDLE_SEARCH, payload: searchTerm });
+  };
+
   useEffect(() => {
     fetchStories(`${rootURL}${queryParam}`);
-  }, []);
+  }, [state.query]);
 
   return (
-    <AppContext.Provider value={{ ...state }}>{children}</AppContext.Provider>
+    <AppContext.Provider value={{ ...state, handleSearch }}>
+      {children}
+    </AppContext.Provider>
   );
 };
 
