@@ -4,7 +4,12 @@ import { useGlobalContext } from './context';
 const SearchForm = () => {
   //const {} = useGlobalContext();
 
-  return <div>search form</div>;
+  return (
+    <form className='search-form'>
+      <h2>search hacker news</h2>
+      <input type='text' className='form-input' />
+    </form>
+  );
 };
 
 export default SearchForm;

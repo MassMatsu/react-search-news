@@ -5,11 +5,11 @@ import Buttons from './Buttons';
 
 const App = () => {
   return (
-    <div>
+    <>
       <SearchForm />
       <Buttons />
       <Stories />
-    </div>
+    </>
   );
 };
 
