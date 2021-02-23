@@ -2,9 +2,9 @@ import React from 'react';
 import { useGlobalContext } from './context';
 
 const SearchForm = () => {
-  const data = useGlobalContext();
+  //const {} = useGlobalContext();
 
-  return <div>{data}</div>;
+  return <div>search form</div>;
 };
 
 export default SearchForm;
