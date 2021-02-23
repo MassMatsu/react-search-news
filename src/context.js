@@ -5,6 +5,7 @@ import {
   SET_STORIES,
   HANDLE_SEARCH,
   HANDLE_REMOVE,
+  HANDLE_PAGE,
 } from './actions';
 
 const AppContext = createContext();
@@ -22,6 +23,7 @@ const rootURL = 'http://hn.algolia.com/api/v1/search?';
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const queryParam = `&query=${state.query}`;
+  const pageParam = `&page=${state.page}`;
 
   const fetchStories = async (url) => {
     dispatch({ type: SET_LOADING });
@@ -41,12 +43,18 @@ const AppProvider = ({ children }) => {
     dispatch({ type: HANDLE_REMOVE, payload: id });
   };
 
+  const handlePage = (btn) => {
+    dispatch({ type: HANDLE_PAGE, payload: btn });
+  };
+
   useEffect(() => {
-    fetchStories(`${rootURL}${queryParam}`);
-  }, [state.query]);
+    fetchStories(`${rootURL}${queryParam}${pageParam}`);
+  }, [state.query, state.page]);
 
   return (
-    <AppContext.Provider value={{ ...state, handleSearch, handleRemove }}>
+    <AppContext.Provider
+      value={{ ...state, handleSearch, handleRemove, handlePage }}
+    >
       {children}
     </AppContext.Provider>
   );
