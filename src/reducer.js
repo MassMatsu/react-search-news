@@ -9,7 +9,7 @@ import {
 const reducer = (state, action) => {
   switch (action.type) {
     case SET_LOADING:
-      return { ...state, loading: true };
+      return { ...state, loading: !state.loading };
     case SET_STORIES:
       const { hits, page, nbPages } = action.payload;
       return {

@@ -27,11 +27,14 @@ const AppProvider = ({ children }) => {
 
   const fetchStories = async (url) => {
     dispatch({ type: SET_LOADING });
-    const response = await fetch(url);
-    const data = await response.json();
-
-    console.log(data);
-    dispatch({ type: SET_STORIES, payload: data });
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      dispatch({ type: SET_STORIES, payload: data });
+    } catch (error) {
+      console.log(error, 'unable to fetch the data');
+      dispatch({ type: SET_LOADING });
+    }
   };
 
   const handleSearch = (searchTerm) => {
@@ -49,6 +52,7 @@ const AppProvider = ({ children }) => {
 
   useEffect(() => {
     fetchStories(`${rootURL}${queryParam}${pageParam}`);
+    // eslint-disable-next-line
   }, [state.query, state.page]);
 
   return (
